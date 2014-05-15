@@ -62,6 +62,11 @@ task :runhs, [:problem] do |t, args|
     FileUtils.mkdir_p('build')
     FileUtils.mkdir_p("build/#{problem}")
 
+    if files.length == 0 then
+        puts "No source files found in './#{dir}/'."
+        exit 1
+    end
+
     exe = "build/#{problem}/#{problem}"
 
     objs = []
