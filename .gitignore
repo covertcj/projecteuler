@@ -2,6 +2,9 @@
 *.swo
 *~
 
-*.o
-*.exe
-*.hi
+# ignore all file in problem directories that don't end in '_enc' or '.data'
+*.hs/*
+!*.hs/*_enc
+!*.hs/*.data
+
+build/
