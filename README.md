@@ -15,6 +15,12 @@ to descrypt.  For example:
 
     rake encrypt[001,5555]
     rake decrypt[001,5555]
+    
+It's somewhat likely the above commands will fail due to your shell's attempt to
+preprocess them, so may need to use quotes:
+
+    rake "encrypt[001,5555]"
+    rake "decrypt[001,5555]"
 
 Running Haskell Problems
 ------------------------
