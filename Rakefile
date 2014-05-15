@@ -1,6 +1,6 @@
 require 'encrypted_strings'
 
-task :encrypt, [:problem, :password] do |t, args|
+task :enc, [:problem, :password] do |t, args|
     pass    = args[:password]
     problem = args[:problem]
     dir     = "#{problem}.hs"
@@ -23,7 +23,7 @@ task :encrypt, [:problem, :password] do |t, args|
     end
 end
 
-task :decrypt, [:problem, :password] do |t, args|
+task :dec, [:problem, :password] do |t, args|
     pass    = args[:password]
     problem = args[:problem]
     dir     = "#{problem}.hs"
@@ -34,6 +34,12 @@ task :decrypt, [:problem, :password] do |t, args|
         fileOut = "#{dir}/#{base}.hs"
 
         puts "Decrypting #{file} => #{fileOut} with password #{pass}..."
+        if File.exists?(fileOut) then
+            puts "File '#{fileOut}' already exists. Overwrite? (yes/no)"
+            answer = STDIN.gets.strip
+
+            break unless answer == "yes"
+        end
 
         contents = File.read(file)
         decrypted = contents.decrypt(
@@ -56,7 +62,7 @@ task :runhs, [:problem] do |t, args|
     FileUtils.mkdir_p('build')
     FileUtils.mkdir_p("build/#{problem}")
 
-    exe = "build/#{problem}"
+    exe = "build/#{problem}/#{problem}"
 
     objs = []
     files.each do |file|
@@ -73,10 +79,18 @@ task :runhs, [:problem] do |t, args|
     `ghc -o #{exe} #{objs.join(" ")}`
 
     puts "Running #{exe}"
+    puts "--------------------------------------------------------------------------------"
     puts ""
 
-    res = `#{exe}` if File.exists?(exe)
-    res = `#{exe}.exe`
+    res = ""
+    if File.exists?(exe) then
+        res = `#{exe}`
+    elsif File.exists?("#{exe}.exe")
+        res = `#{exe}.exe`
+    else
+        puts "Couldn't find executable: #{exe}"
+        exit(1)
+    end
 
     puts res
 end
