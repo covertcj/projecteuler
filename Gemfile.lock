@@ -1,0 +1,10 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    encrypted_strings (0.3.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  encrypted_strings
