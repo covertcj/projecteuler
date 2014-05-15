@@ -10,17 +10,17 @@ answer to the given problem.
 Decrypting/Encrypting Solutions
 -------------------------------
 
-Use `rake encrypt[:problem,:answer]` to encrypt and `rake decrypt[:problem,:answer]`
+Use `rake enc[:problem,:answer]` to encrypt and `rake dec[:problem,:answer]`
 to descrypt.  For example:
 
-    rake encrypt[001,5555]
-    rake decrypt[001,5555]
+    rake enc[001,5555]
+    rake dec[001,5555]
     
 It's somewhat likely the above commands will fail due to your shell's attempt to
 preprocess them, so may need to use quotes:
 
-    rake "encrypt[001,5555]"
-    rake "decrypt[001,5555]"
+    rake "enc[001,5555]"
+    rake "dec[001,5555]"
 
 Running Haskell Problems
 ------------------------
